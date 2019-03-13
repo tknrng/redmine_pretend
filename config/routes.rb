@@ -1,4 +1,7 @@
-RedmineApp::Application.routes.draw do
-  post 'admin/pretend_to/:id' => 'application#pretend_to', :as => 'pretend_to'
-  post 'admin/unpretend' => 'application#unpretend', :as => 'unpretend'
+# Plugin's routes
+# See: http://guides.rubyonrails.org/routing.html
+
+resources :users, only: [] do
+  post :pretend_to, on: :member
+  post :unpretend, on: :collection
 end

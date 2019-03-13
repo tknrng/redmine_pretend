@@ -11,6 +11,6 @@ module PretendHelper
   private
 
   def not_pretending?
-    !session[:real_user_id].present?
+    session[:real_user_id].blank?
   end
 end

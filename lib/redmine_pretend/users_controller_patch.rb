@@ -3,17 +3,12 @@ require_dependency 'application_controller'
 module PretendPatches
   module ApplicationControllerPatch
     def self.included(base)
-      base.extend(ClassMethods)
       base.send(:include, InstanceMethods)
 
       base.class_eval do
-        unloadable # Send unloadable so it will not be unloaded in development
         helper PretendHelper
         helper_method :real_user
       end
-    end
-
-    module ClassMethods
     end
 
     module InstanceMethods
@@ -25,7 +20,7 @@ module PretendPatches
           return render_403 if user.admin?
 
           remember_current_user
-          logger.info "#{ User.current } is pretend as #{user}"
+          logger.info "#{User.current} is pretend as #{user}"
           set_user(user)
         end
 
@@ -34,7 +29,7 @@ module PretendPatches
 
       def unpretend
         if pretending?
-          logger.info "#{ session[:real_user_id] } stop pretend"
+          logger.info "#{session[:real_user_id]} stop pretend"
           set_user(real_user)
           reset_pretent_storage
         end
@@ -42,7 +37,7 @@ module PretendPatches
       end
 
       def real_user
-        @real_user ||= User.find_by_id(User.active.find(session[:real_user_id]))
+        @real_user ||= User.find_by(id: User.active.find(session[:real_user_id]))
       end
 
       def pretending?
