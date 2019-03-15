@@ -7,3 +7,7 @@ Redmine::Plugin.register :redmine_pretend do
   url 'https://github.com/AlphaNodes/redmine_pretend'
   requires_redmine version_or_higher: '3.4.0'
 end
+
+Rails.configuration.to_prepare do
+  RedminePretend.setup
+end
