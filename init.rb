@@ -1,5 +1,4 @@
 require 'redmine_pretend'
-require File.join(File.dirname(__FILE__), 'app/helpers/pretend_helper.rb')
 
 Redmine::Plugin.register :redmine_pretend do
   name 'Redmine Pretend plugin'
